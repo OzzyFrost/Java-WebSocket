@@ -59,7 +59,7 @@ public class SSLClientExample {
 //        2 | testuser1  | testmail | 2d1ea610bc493d76
 //        3 | testuser2 | testmail | f5b7c119e858b9f3
 //        формат сообщения
-// { "receiver":"2", "message":"helloworld" }
+//          { "receiver":"2", "message":"helloworld" }
 
 
 //        httpHeaders.put("Token","36a6908c783ba6e5");
