@@ -31,6 +31,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -50,8 +52,23 @@ public class SSLClientExample {
      */
     public static void main(String[] args) throws Exception {
 //        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://pocketmsg.ru:8888/v1/ws/"));
-        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://echo.websocket.org:443/"));
+        Map<String,String> httpHeaders = new HashMap<String, String>();
 
+//        uid | username | email | token
+//                -----+-----------+----------+----------+------------------
+//        2 | testuser1  | testmail | 2d1ea610bc493d76
+//        3 | testuser2 | testmail | f5b7c119e858b9f3
+//        формат сообщения
+// { "receiver":"2", "message":"helloworld" }
+
+
+//        httpHeaders.put("Token","36a6908c783ba6e5");
+        httpHeaders.put("Token","f5b7c119e858b9f3");
+
+
+        System.out.println("httpHEADER"+httpHeaders);
+//        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://echo.websocket.org:443/"),httpHeaders);
+        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://pocketmsg.ru:8888/v1/ws/"),httpHeaders);
         // load up the key store
 //        String STORETYPE = "JKS";
 //        String KEYSTORE = "keystore.jks";
@@ -77,6 +94,8 @@ public class SSLClientExample {
         SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 
         chatclient.setSocketFactory(factory);
+
+
 
         System.out.println("scheme \t"+chatclient.getURI().getScheme());
         System.out.println("host \t"+chatclient.getURI().getHost());

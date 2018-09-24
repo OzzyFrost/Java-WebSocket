@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.security.KeyStore;
+import java.util.Map;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -46,7 +47,9 @@ class WebSocketChatClient extends WebSocketClient {
     public WebSocketChatClient( URI serverUri ) {
         super( serverUri );
     }
-
+    public WebSocketChatClient( URI serverUri, Map<String, String> httpHeaders ) {
+        super(serverUri, httpHeaders);
+    }
     @Override
     public void onOpen( ServerHandshake handshakedata ) {
         System.out.println( "Connected" );
