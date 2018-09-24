@@ -50,7 +50,7 @@ public class SSLClientExample {
      */
     public static void main(String[] args) throws Exception {
 //        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://pocketmsg.ru:8888/v1/ws/"));
-        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://echo.websocket.org"));
+        WebSocketChatClient chatclient = new WebSocketChatClient(new URI("wss://echo.websocket.org:443/"));
 
         // load up the key store
 //        String STORETYPE = "JKS";
@@ -73,11 +73,17 @@ public class SSLClientExample {
 //        sslContext.init( kmf.getKeyManagers(), tmf.getTrustManagers(), null );
         sslContext.init(null, null, null); // will use java's default key and trust store which is sufficient unless you deal with self-signed certificates
 
-        SSLSocketFactory factory = sslContext.getSocketFactory();
-
-//        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+//        SSLSocketFactory factory = sslContext.getSocketFactory();
+        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 
         chatclient.setSocketFactory(factory);
+
+        System.out.println("scheme \t"+chatclient.getURI().getScheme());
+        System.out.println("host \t"+chatclient.getURI().getHost());
+        System.out.println("port \t"+chatclient.getURI().getPort());
+        System.out.println("path \t"+chatclient.getURI().getPath());
+        System.out.println("query \t"+chatclient.getURI().getQuery());
+        System.out.println("RawUserInfo \t"+chatclient.getURI().getRawUserInfo());
 
         chatclient.connectBlocking();
 
